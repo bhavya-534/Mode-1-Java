@@ -1,0 +1,84 @@
+<html>
+
+    <head>
+	
+        <meta name="viewport" content="width=1024">
+		
+        <title>Registration</title>
+		
+		<link rel="stylesheet" href="Register_style.css">
+		
+        <script src="Register_Validation.js"></script>
+		
+    </head>
+   
+    <body>
+	
+        <p class="heading">Student Registration Form</p>
+		
+        <div class = "formcss">
+		
+            <form  name="vform" method="POST">
+
+                <div class="inputelementscss">
+                      
+                    <input class="input" name="firstname" id="firstname_id" type="text" autocomplete="off" required onchange="checkFirstname(this.value)" placeholder="First Name">
+       
+						<div id="firstname_error" style="position:absolute;margin: 0 0 0 10%;color:red"></div>
+	   
+                    <input class="input" name="lastname" id="lastname_id" type="text" autocomplete="off" required onchange="checkLastname(this.value)" placeholder="Last Name">
+				
+						<div id="lastname_error" style="position: relative;margin: 0 0 0 55%;color:red"></div>
+         				   
+					<input class="input" name="password_student" id="password_id" type="password" autocomplete="off" required onchange="checkPassword(this.value)" placeholder="Password">
+       
+						<div id="password_error" style="position:absolute;margin: 0 0 0 5%;color:red"></div>
+	   
+                    <input class="input" name="confirmpassword" id="confirmpassword_id" type="password" autocomplete="off" required onchange="checkConfirmpassword(this.value)" placeholder="Confirm Password">
+					
+						<div id="confirmpassword_error" style="position: relative;margin: 0 0 0 50%;color:red"></div>
+						
+                    <input class="input"  id='caption' type="email" autocomplete="off" required placeholder="Email">
+   
+                    <input class="input" name="phone" id="phone_id" type="number" autocomplete="off" required onchange="checkPhone(this.value)" placeholder="Mobile Number">
+					
+						<div id="phone_error" style="position: relative;margin: 0 0 0 55%;color:red"></div>
+      
+					<div  class="radio" required>
+					
+						<label>Gender :</label>
+						<input type="radio" style="margin-top:10px;margin-left:35px;width: auto;"><label>Male</label>
+						<input type="radio" style="margin-top:10px;margin-left:45px;width: auto;"><label>Female</label>
+						<input type="radio" style="margin-top:10px;margin-left:52px;width: auto;"><label>Others</label>
+						
+                    </div>
+					
+				    <select required="true">
+						
+						  <option disabled selected>Department</option>
+                          <option>CSE</option>
+                          <option>ECE</option>
+                          <option>EEE</option>	
+                          <option>CIVIL</option>	
+                          <option>MECH</option>
+                          <option>IT</option>
+                     
+					</select>
+                         
+					<input class="input" type="text" autocomplete="off" required placeholder="Address">
+					  
+					<input class="input" name="pin" id="pin_id" type="number" required onchange="checkPin(this.value)"  placeholder="PIN code">
+					 
+					<div id="pin_error" style="position: relative;margin: 0 0 0 55%;color:red"></div>
+					
+                    <button class="register" type="submit" value="submit">Register</button>
+					 
+                </div>
+             
+			</form>
+       
+	    </div>
+    
+	</body>
+    
+</html>
