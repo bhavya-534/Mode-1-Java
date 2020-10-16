@@ -1,0 +1,143 @@
+1)
+
+use BankDatabase;
+
+CREATE TABLE  customer_master(
+customer_number integer,
+firstname varchar(30), 
+lastname varchar(20),
+customer_city varchar(35),
+PRIMARY KEY (customer_number)
+);
+
+CREATE TABLE account_master(
+account_number integer,
+account_opening_date date,
+customer_number integer,
+PRIMARY KEY(account_number,customer_number),
+FOREIGN KEY (customer_number) REFERENCES customer_master(customer_number)
+);
+
+insert into customer_master values (12124,'bhavya','sai','Bengalore');
+insert into customer_master values (12154,'Srinivas','Rao','Srikakulam');
+insert into customer_master values (22378, 'Devid' , 'Raj','Chennai');
+insert into customer_master values (24589, 'john' , 'MS','US');
+insert into customer_master values (34034,'praveen','kumar','Chennai');
+
+INSERT INTO account_master VALUES (146988, '2009-12-12',12124);
+INSERT INTO account_master VALUES (248591, '2018-05-10',34034);
+INSERT INTO account_master VALUES (259874, '2019-04-12',12154);
+INSERT INTO account_master VALUES (289578, '2017-12-16',12124);
+INSERT INTO account_master VALUES (298124, '2019-02-05',34034);
+
+select * from account_master;
+
+			account_number	account_opening_date	customer_number
+			146988		2009-12-12		12124
+			248591		2018-05-10		34034
+			259874		2019-04-12		12154
+			289578		2017-12-16		12124
+			298124		2019-02-05		34034
+				
+			
+select * from customer_master;
+
+			customer_number	firstname	lastname	customer_city
+			12124		bhavya		sai		Bengalore
+			12154		Srinivas	Rao		Srikakulam
+			22378		Devid		Raj		Chennai
+			24589		john		MS		US
+			34034		praveen		kumar		Chennai
+				
+			
+			
+
+SELECT am.account_number, cm.customer_number, cm.firstname, cm.lastname, am.account_opening_date
+FROM customer_master cm INNER JOIN account_master am on cm.customer_number = am.customer_number order by am.account_number;
+
+			account_number	customer_number	firstname	lastname	account_opening_date
+			146988		12124		bhavya		sai		2009-12-12
+			248591		34034		praveen		kumar		2018-05-10
+			259874		12154		Srinivas	Rao		2019-04-12
+			289578		12124		bhavya		sai		2017-12-16
+			298124		34034		praveen		kumar		2019-02-05
+
+2)
+
+SELECT count(customer_number) cust_count from customer_master WHERE customer_city='Chennai';
+
+			cust_count
+			2
+
+
+3)
+
+SELECT  am.customer_number, firstname, account_number
+FROM customer_master cm INNER JOIN account_master am
+ON cm.customer_number=am.customer_number
+WHERE day(account_opening_date)>15
+ORDER BY am.customer_number, account_number; 
+	
+			customer_number	firstname	account_number
+			12124		bhavya		289578
+4)
+
+SELECT count(customer_number) AS Count_Customer FROM customer_master 
+WHERE customer_number NOT IN (SELECT customer_number FROM account_master);
+
+			Count_Customer
+			2
+5)
+
+
+select firstname FROM customer_master cm INNER JOIN account_master am ON cm.customer_number=am.customer_number 
+group by firstname having count(account_number)>1 order by firstname;
+
+			firstname
+			bhavya
+			praveen
+
+6)
+
+CREATE TABLE loan_details (
+loan_account_number integer,
+loan_taken_date date,
+customer_number integer,
+PRIMARY KEY (loan_account_number),
+FOREIGN KEY (customer_number) REFERENCES customer_master(customer_number)
+);
+
+insert into loan_details values (24851,'2018-12-25',22378);
+insert into loan_details values (27854,'2019-08-17',24589);
+
+
+select * from loan_details;
+
+		     	loan_account_number	loan_taken_date	customer_number
+		     	24851			2018-12-25	22378
+		     	27854			2019-08-17	24589
+			
+
+SELECT count(ld.customer_number) as Count
+FROM customer_master cm INNER JOIN loan_details ld
+ON  cm.customer_number=ld.customer_number
+WHERE cm.customer_number NOT IN ( SELECT customer_number FROM account_master); 
+
+		  	 Count
+		  	 2
+
+7)
+
+
+SELECT firstname FROM customer_master INNER JOIN account_master
+ON customer_master.customer_number = account_master.customer_number GROUP BY firstname
+having count(firstname)>=2 order by firstname; 
+
+
+	           	firstname
+	           	bhavya
+	           	praveen
+
+
+
+
